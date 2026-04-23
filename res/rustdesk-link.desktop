@@ -1,11 +1,11 @@
 [Desktop Entry]
-Name=RustDesk
+Name=Feng-IT Remote
 NoDisplay=true
-MimeType=x-scheme-handler/rustdesk;
-TryExec=rustdesk
-Exec=rustdesk %u
-Icon=rustdesk
+MimeType=x-scheme-handler/fengit;
+TryExec=fengit
+Exec=fengit %u
+Icon=fengit
 Terminal=false
 Type=Application
 StartupNotify=false
-StartupWMClass=rustdesk
+StartupWMClass=fengit

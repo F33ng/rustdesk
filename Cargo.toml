@@ -1,11 +1,11 @@
 [package]
-name = "rustdesk"
+name = "fengit"
 version = "1.4.6"
-authors = ["rustdesk <info@rustdesk.com>"]
+authors = ["Feng-IT <info@feng-it.de>"]
 edition = "2021"
 build= "build.rs"
 description = "RustDesk Remote Desktop"
-default-run = "rustdesk"
+default-run = "fengit"
 rust-version = "1.75"
 
 [lib]
