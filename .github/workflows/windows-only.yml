@@ -1,0 +1,64 @@
+name: Windows Build Only
+
+on:
+  workflow_dispatch:
+
+env:
+  CARGO_TERM_COLOR: always
+  RUST_BACKTRACE: 1
+  VCPKG_COMMIT_ID: "6f29f12e82a8293156836ad81cc9bf5af41fe836"
+  FLUTTER_VERSION: "3.24.5"
+  RUST_VERSION: "1.75"
+
+jobs:
+  build-windows:
+    runs-on: windows-2022
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - uses: dtolnay/rust-toolchain@master
+        with:
+          toolchain: ${{ env.RUST_VERSION }}
+          targets: x86_64-pc-windows-msvc
+
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+
+      - uses: lukka/run-vcpkg@v11
+        with:
+          vcpkgGitCommitId: ${{ env.VCPKG_COMMIT_ID }}
+
+      - name: Install vcpkg deps
+        shell: pwsh
+        run: |
+          $env:VCPKG_ROOT = "${{ github.workspace }}/vcpkg"
+          & "$env:VCPKG_ROOT/vcpkg.exe" install libvpx:x64-windows-static libyuv:x64-windows-static opus:x64-windows-static aom:x64-windows-static
+
+      - name: Flutter pub get
+        working-directory: ./flutter
+        run: flutter pub get
+
+      - name: Build Rust
+        env:
+          VCPKG_ROOT: ${{ github.workspace }}/vcpkg
+        run: cargo build --release --features flutter
+
+      - name: Build Flutter Windows
+        working-directory: ./flutter
+        run: flutter build windows --release
+
+      - name: Package
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force -Path rustdesk-windows
+          Copy-Item target\release\rustdesk.exe rustdesk-windows\
+          Copy-Item -Recurse flutter\build\windows\x64\runner\Release\* rustdesk-windows\
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: rustdesk-windows-x64
+          path: rustdesk-windows/
+          retention-days: 14
