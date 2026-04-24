@@ -1,4 +1,3 @@
-cat > vcpkg.json << 'EOF'
 {
   "dependencies": [
     {
@@ -112,4 +111,3 @@ cat > vcpkg.json << 'EOF'
     }
   ]
 }
-EOF
