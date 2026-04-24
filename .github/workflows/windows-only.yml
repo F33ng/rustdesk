@@ -45,10 +45,12 @@ jobs:
         run: |
           $env:VCPKG_ROOT = "${{ github.workspace }}/vcpkg"
           $env:VCPKG_DEFAULT_TRIPLET = "x64-windows-static"
+          $env:VCPKG_DEFAULT_HOST_TRIPLET = "x64-windows-static"
           & "$env:VCPKG_ROOT/vcpkg.exe" install `
             --triplet x64-windows-static `
+            --host-triplet x64-windows-static `
             --no-binarycaching
-
+ 
       - name: Flutter pub get
         working-directory: ./flutter
         run: flutter pub get
