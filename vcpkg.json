@@ -2,11 +2,13 @@
   "dependencies": [
     {
       "name": "aom",
-      "host": true
+      "host": true,
+      "platform": "static"
     },
     {
       "name": "aom",
-      "host": false
+      "host": false,
+      "platform": "static"
     },
     {
       "name": "cpu-features",
@@ -14,11 +16,13 @@
     },
     {
       "name": "libjpeg-turbo",
-      "host": true
+      "host": true,
+      "platform": "static"
     },
     {
       "name": "libjpeg-turbo",
-      "host": false
+      "host": false,
+      "platform": "static"
     },
     {
       "name": "oboe",
@@ -26,37 +30,43 @@
     },
     {
       "name": "opus",
-      "host": true
+      "host": true,
+      "platform": "static"
     },
     {
       "name": "opus",
-      "host": false
+      "host": false,
+      "platform": "static"
     },
     {
       "name": "libvpx",
-      "host": true
+      "host": true,
+      "platform": "static"
     },
     {
       "name": "libvpx",
-      "host": false
+      "host": false,
+      "platform": "static"
     },
     {
       "name": "libyuv",
-      "host": true
+      "host": true,
+      "platform": "static"
     },
     {
       "name": "libyuv",
-      "host": false
+      "host": false,
+      "platform": "static"
     },
     {
       "name": "mfx-dispatch",
       "host": true,
-      "platform": "((x86 | x64) & (android | linux)) | (windows & !uwp)"
+      "platform": "((x86 | x64) & (android | linux)) | (windows & !uwp & static)"
     },
     {
       "name": "mfx-dispatch",
       "host": false,
-      "platform": "((x86 | x64) & (android | linux)) | (windows & !uwp)"
+      "platform": "((x86 | x64) & (android | linux)) | (windows & !uwp & static)"
     },
     {
       "name": "ffmpeg",
