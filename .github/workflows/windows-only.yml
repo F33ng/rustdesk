@@ -31,11 +31,11 @@ jobs:
         with:
           vcpkgGitCommitId: ${{ env.VCPKG_COMMIT_ID }}
 
-      - name: Install vcpkg deps
-        shell: pwsh
-        run: |
-          $env:VCPKG_ROOT = "${{ github.workspace }}/vcpkg"
-          & "$env:VCPKG_ROOT/vcpkg.exe" install libvpx:x64-windows-static libyuv:x64-windows-static opus:x64-windows-static aom:x64-windows-static
+     - name: Install vcpkg deps
+       shell: pwsh
+       run: |
+         $env:VCPKG_ROOT = "${{ github.workspace }}/vcpkg"
+         & "$env:VCPKG_ROOT/vcpkg.exe" install --triplet x64-windows-static
 
       - name: Flutter pub get
         working-directory: ./flutter
