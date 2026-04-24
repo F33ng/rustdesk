@@ -31,6 +31,15 @@ else()
     )
 endif()
 
+
+# Fix for NASM 3.x compatibility - disable multipass check (aom issue 3700)
+file(READ "${SOURCE_PATH}/build/cmake/aom_optimization.cmake" _aom_opt)
+string(REPLACE
+    "message(FATAL_ERROR \"Unsupported nasm: multipass optimization not supported.\")"
+    "message(WARNING \"NASM multipass check skipped\")"
+    _aom_opt "${_aom_opt}")
+file(WRITE "${SOURCE_PATH}/build/cmake/aom_optimization.cmake" "${_aom_opt}")
+
 set(aom_target_cpu "")
 if(VCPKG_TARGET_IS_UWP OR (VCPKG_TARGET_IS_WINDOWS AND VCPKG_TARGET_ARCHITECTURE MATCHES "^arm"))
     # UWP + aom's assembler files result in weirdness and build failures
